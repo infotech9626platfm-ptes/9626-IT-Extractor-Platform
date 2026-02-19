@@ -47,7 +47,7 @@ def display_pdf(file_path):
 
 # --- 3. THE INTERFACE ---
 st.set_page_config(page_title="9626 IT Lecturer Portal", layout="wide")
-st.title("📂 IT 9626 Official Resource Platform")
+st.title("📂 IT 9626 Questions Retrieval Suite")
 
 # SIDEBAR: ADMIN UPLOAD
 with st.sidebar:
@@ -124,13 +124,13 @@ with t1:
 
 #for paper number aligned with variant number
 with t2:
-    st.subheader("📚 3-Years Topical Batch Extractor")
-    st.write("Extract questions across a 3-year range into one document.")
+    st.subheader("📚 4-Years Topical Batch Extractor")
+    st.write("Extract questions across a 4-year range into one document.")
 
     col_a, col_b = st.columns(2)
     with col_a:
         # Starting year input for the 4-year range
-        start_yr = st.number_input("Starting Year", min_value=2019, max_value=2026, value=2019, key="batch_start")
+        start_yr = st.number_input("Starting Year", min_value=2019, max_value=2030, value=2019, key="batch_start")
         end_yr = start_yr + 3
         st.info(f"Scanning from {start_yr} to {end_yr}")
 
@@ -141,9 +141,7 @@ with t2:
         b_variant = st.selectbox("Variant", variants_map[b_paper], key="batch_v")
 
     b_topic = st.text_input("Topic Keyword (e.g. 'Software')", key="batch_topic")
-############################
 
-#########################
     if st.button("🚀 Run Batch Extraction", key="batch_run"):
         all_text = ""
         # The engine loops through the defined 4-year window
@@ -211,4 +209,5 @@ if 'current_data' in st.session_state:
             doc.add_paragraph(text)
         bio = io.BytesIO()
         doc.save(bio)
+
         st.download_button("Click to Download", bio.getvalue(), "IT_Questions.docx")
